@@ -3,6 +3,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+
+
+// Main Form Component
 export default function Form() {
   const [participants, setParticipants] = useState([
     { role: "SELLER", name: "", email: "", order: 1 },
@@ -24,7 +27,6 @@ export default function Form() {
     setLoading(true);
     setMessage("");
 
-    // Validation for duplicate roles
     const hasDuplicates = participants
       .map((p) => p.role)
       .some((v, i, arr) => arr.indexOf(v) !== i);
@@ -51,7 +53,7 @@ export default function Form() {
       if (response.status === 200) {
         setMessage("Template sent successfully for signing!");
       } else {
-        setMessage('Template sent successfully for signing!');
+        setMessage("Template sent successfully for signing!");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -61,31 +63,73 @@ export default function Form() {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 flex flex-col justify-between relative">
-      {/* Form Layout */}
-      <header className="p-4 bg-white shadow-md text-center z-10">
-        <h1 className="text-2xl font-bold text-gray-800">Document Signing Portal</h1>
-        <p className="text-sm text-gray-500">Send templates for signing</p>
-      </header>
+  // Header Component
+const Header = () => (
+  <header className="w-screen h-24 bg-gradient-to-r from-blue-800 to-blue-900 text-white flex justify-between items-center px-16 shadow-lg">
+    <div className="flex items-center space-x-4">
+      <img
+        src="https://imgs.search.brave.com/AVWtO9DxuutQe_AQKUxAcMNzF7rcZnJyGD8GvBdCsNQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kNW51/bnlhZ2NpY2d5LmNs/b3VkZnJvbnQubmV0/L3AvYXNzZXRzL2lt/YWdlcy9ncmFwaGlj/LXR1dG9yaWFsLWJh/c2ljc0AyeF8wOTVh/OWNjYTVjYzBlMzA2/NTJhZjJhNDI3Y2Rm/YzNkOS5wbmc" 
+        alt="Company Logo"
+        className="w-16 h-16"
+      />
+      <div>
+        <h1 className="text-2xl font-bold">Sky Trade</h1>
+        <p className="text-sm">Monetize
+        and Trade Air Rights</p>
+      </div>
+    </div>
+    <div className="text-right">
+      <h2 className="text-lg font-semibold">Welcome to Our Platform</h2>
+      <p className="text-sm">
+        Streamline your document signing process with ease and efficiency.
+      </p>
+    </div>
+  </header>
+);
 
-      <main className="flex-grow flex justify-center items-center z-10">
+// Footer Component
+const Footer = () => (
+  <footer className="w-screen h-20 bg-gradient-to-r from-blue-800 to-blue-900 text-white flex justify-between items-center px-16 shadow-lg mt-12">
+    <div>
+      <h1 className="text-lg font-bold">Sky Trade</h1>
+      <p className="text-sm">Monetize
+      and Trade Air Rights</p>
+    </div>
+    <div className="text-right">
+      <h2 className="text-md font-semibold">Contact Us</h2>
+      <p className="text-sm">
+        Email: support@company.com <br />
+        Phone: +1 (123) 456-7890
+      </p>
+    </div>
+  </footer>
+);
+
+  return (
+    <div className="min-h-screen flex flex-col font-sans">
+      <Header />
+      <main className="flex-grow flex justify-center items-center w-full bg-gray-50 py-16">
         <form
-          className="w-full max-w-md bg-white p-6 rounded-lg shadow-2xl backdrop-blur-md"
+          className="w-full max-w-lg bg-white p-8 rounded-xl shadow-2xl border border-gray-100"
           onSubmit={handleSubmit}
         >
-          <h2 className="text-lg font-semibold text-gray-700 text-center mb-4">
+          <h2 className="text-2xl font-semibold text-gray-800 text-center mb-8">
             Send Template for Signature
           </h2>
 
-          <input
-            type="text"
-            placeholder="Template ID"
-            className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 mb-4 text-gray-800"
-            value={templateId}
-            onChange={(e) => setTemplateId(e.target.value)}
-            required
-          />
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Template ID
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Template ID"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+              value={templateId}
+              onChange={(e) => setTemplateId(e.target.value)}
+              required
+            />
+          </div>
 
           {participants.map((participant, index) => (
             <div key={index} className="flex flex-col gap-2 mb-4">
@@ -125,19 +169,20 @@ export default function Form() {
 
           <button
             type="submit"
-            className={`w-full p-3 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 transition-transform transform hover:scale-105 ${
-              loading ? "opacity-50" : ""
+            className={`w-full p-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={loading}
           >
-            {loading ? "Sending..." : "Send"}
+            {loading ? "Sending..." : "Send Template"}
           </button>
 
           {message && (
-            <p className="text-sm text-green-600 mt-4 text-center">{message}</p>
+            <p className="text-sm text-center mt-4 text-green-600">{message}</p>
           )}
         </form>
       </main>
+      <Footer />
     </div>
   );
 }
