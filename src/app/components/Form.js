@@ -3,13 +3,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-
-
 // Main Form Component
 export default function Form() {
   const [participants, setParticipants] = useState([
     { role: "SELLER", name: "", email: "", order: 1 },
-    { role: "BUYER", name: "", email: "", order: 2 },
+    { role: "BUYER", name: "", email:"", order: 2 },
   ]);
   const [templateId, setTemplateId] = useState("");
   const [loading, setLoading] = useState(false);
@@ -63,39 +61,31 @@ export default function Form() {
     }
   };
 
-  // Header Component
+ // Header Component
 const Header = () => (
-  <header className="w-screen h-24 bg-gradient-to-r from-blue-800 to-blue-900 text-white flex justify-between items-center px-16 shadow-lg">
-    <div className="flex items-center space-x-4">
+  <header className="w-screen h-auto md:h-24 bg-gradient-to-r from-blue-800 to-blue-900 text-white flex flex-col md:flex-row justify-between items-center p-4 shadow-lg">
+    <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 px-4 md:px-8 w-full">
       <img
-        src="https://imgs.search.brave.com/AVWtO9DxuutQe_AQKUxAcMNzF7rcZnJyGD8GvBdCsNQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kNW51/bnlhZ2NpY2d5LmNs/b3VkZnJvbnQubmV0/L3AvYXNzZXRzL2lt/YWdlcy9ncmFwaGlj/LXR1dG9yaWFsLWJh/c2ljc0AyeF8wOTVh/OWNjYTVjYzBlMzA2/NTJhZjJhNDI3Y2Rm/YzNkOS5wbmc" 
+        src="https://imgs.search.brave.com/AVWtO9DxuutQe_AQKUxAcMNzF7rcZnJyGD8GvBdCsNQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kNW51/bnlhZ2NpY2d5LmNs/b3VkZnJvbnQubmV0/L3AvYXNzZXRzL2lt/YWdlcy9ncmFwaGlj/LXR1dG9yaWFsLWJh/c2ljc0AyeF8wOTVh/OWNjYTVjYzBlMzA2/NTJhZjJhNDI3Y2Rm/YzNkOS5wbmc"
         alt="Company Logo"
         className="w-16 h-16"
       />
-      <div>
+      <div className="text-center md:text-left">
         <h1 className="text-2xl font-bold">Sky Trade</h1>
-        <p className="text-sm">Monetize
-        and Trade Air Rights</p>
+        <p className="text-sm">Monetize and Trade Air Rights</p>
       </div>
-    </div>
-    <div className="text-right">
-      <h2 className="text-lg font-semibold">Welcome to Our Platform</h2>
-      <p className="text-sm">
-        Streamline your document signing process with ease and efficiency.
-      </p>
     </div>
   </header>
 );
 
 // Footer Component
 const Footer = () => (
-  <footer className="w-screen h-20 bg-gradient-to-r from-blue-800 to-blue-900 text-white flex justify-between items-center px-16 shadow-lg mt-12">
-    <div>
+  <footer className="w-screen h-auto md:h-20 bg-gradient-to-r from-blue-800 to-blue-900 text-white flex flex-col md:flex-row justify-between items-center p-4 shadow-lg mt-12">
+    <div className="text-center md:text-left px-4 md:px-8 w-full">
       <h1 className="text-lg font-bold">Sky Trade</h1>
-      <p className="text-sm">Monetize
-      and Trade Air Rights</p>
+      <p className="text-sm">Monetize and Trade Air Rights</p>
     </div>
-    <div className="text-right">
+    <div className="text-center md:text-right px-4 md:px-8 w-full">
       <h2 className="text-md font-semibold">Contact Us</h2>
       <p className="text-sm">
         Email: support@company.com <br />
@@ -105,12 +95,13 @@ const Footer = () => (
   </footer>
 );
 
+
   return (
     <div className="min-h-screen flex flex-col font-sans">
       <Header />
-      <main className="flex-grow flex justify-center items-center w-full bg-gray-50 py-16">
+      <main className="flex-grow flex justify-center items-center w-full bg-gray-50 py-8 md:py-16">
         <form
-          className="w-full max-w-lg bg-white p-8 rounded-xl shadow-2xl border border-gray-100"
+          className="w-full max-w-lg bg-white p-6 md:p-8 rounded-xl shadow-2xl border border-gray-100"
           onSubmit={handleSubmit}
         >
           <h2 className="text-2xl font-semibold text-gray-800 text-center mb-8">
@@ -139,7 +130,7 @@ const Footer = () => (
                 onChange={(e) =>
                   handleParticipantChange(index, "role", e.target.value.toUpperCase())
                 }
-                disabled={participant.role === "SELLER" || participant.role === "BUYER"} // Optional
+                disabled={participant.role === "SELLER" || participant.role === "BUYER"}
               >
                 <option value="BUYER">BUYER</option>
                 <option value="SELLER">SELLER</option>
